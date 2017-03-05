@@ -1,3 +1,23 @@
 <resources>
-    <string name="app_name">Chat Application</string>
+    <string name="app_name">Chat</string>
+    <string name="action_setting">Settings</string>
+    <string name="hello">Hello</string>
+    <string name="send">SEND</string>
+    <string name="how_are_you">how are you</string>
+    <string name="fine">Fine</string>
+    <string name="tire">tire</string>
+    <string name="bless_you">Bless you</string>
+    <string name="fortune">fortune</string>
+    <string name="worst_luck">Worst luck</string>
+    <string name="bad_luck">Bad luck</string>
+    <string name="normal_luck">Normal luck</string>
+    <string name="good_luck">Good luck</string>
+    <string name="nice_luck">Nice luck</string>
+    <string name="best_luck">Best luck</string>
+    <string name="amazing_best_luck">Amazing Best luck</string>
+    <string name="super_amazing_best_luck">Super Amazing Best luck</string>
+    <string name="time">time</string>
+    <string name="time_format">The time is %1$d:%2$d.%3$d</string>
+    <string name="haha">Haha</string>
+    <string name="good">good</string>
 </resources>
