@@ -1,9 +1,14 @@
 package com.example.administrator.chatapplication;
 
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -12,7 +17,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+
+import static android.R.attr.data;
 
 public class ChatActivity extends AppCompatActivity  {
     private EditText mInputMessage;
@@ -39,13 +47,13 @@ public class ChatActivity extends AppCompatActivity  {
         //mSendButton.setOnClickListener(this);
     }
 
-    public void sendMessage(View v) {
+    private  void send() {
         String inputText = mInputMessage.getText().toString();
         String lowerInputText = inputText.toLowerCase();
         String answer;
         TextView userMessage = new TextView(this);
         int messageColor = getResources().getColor(R.color.message_color,getTheme());
-                //getColor(R.color.message_color);
+        //getColor(R.color.message_color);
         userMessage.setTextColor(messageColor);
 
         userMessage.setBackgroundResource(R.drawable.user_message);
@@ -60,7 +68,7 @@ public class ChatActivity extends AppCompatActivity  {
 
 //        mUserMessage.setText(inputText);
         if (lowerInputText.contains(getString(R.string.how_are_you))) {
-                answer = getString(R.string.fine);
+            answer = getString(R.string.fine);
         } else if (lowerInputText.contains(getString(R.string.tire))) {
             answer = getString(R.string.bless_you);
         } else if (lowerInputText.contains(getString(R.string.time))) {
@@ -85,6 +93,10 @@ public class ChatActivity extends AppCompatActivity  {
             } else {
                 answer = "운수대통";
             }
+        } else if (lowerInputText.contains(getString(R.string.naver))) {
+            answer = getString(R.string.naver);
+            Intent intent  = new Intent(Intent.ACTION_VIEW, Uri.parse("http://naver.com"));
+            startActivity(intent);
         } else {
             answer = "ㅋㅋㅋㅋ";
         }
@@ -125,7 +137,50 @@ public class ChatActivity extends AppCompatActivity  {
             }
         });
         userMessage.startAnimation(userMessageAnimation);
+    }
+
+    public void sendMessage(View v) {
+        if (v.equals(mSendButton)) {
+            send();
+        }
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if (id==R.id.action_voice_input){
+            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+            startActivityForResult(intent,0);
+            return  true;
+        }
+        return  super.onOptionsItemSelected(item);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_chat,menu);
+        if (getPackageManager().queryIntentActivities(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH),0).size() == 0) {
+            menu.removeItem(R.id.action_voice_input);
+        }
+
+//        return super.onCreateOptionsMenu(menu);
+        return  true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0 && resultCode == RESULT_OK && data.hasExtra(RecognizerIntent.EXTRA_RESULTS)) {
+            ArrayList<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            if (results.size() > 0) {
+                mInputMessage.setText(results.get(0));
+                send();
+            }
+
+        }
     }
 }

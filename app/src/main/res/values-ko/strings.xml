@@ -18,7 +18,9 @@
     <string name="amazing_best_luck">운수대통</string>
     <string name="super_amazing_best_luck">로또에 맞음</string>
     <string name="time">시간</string>
-    <string name="time_format">현재 시가은 %1$d시 %2$d분 %3$d초 입니다</string>
+    <string name="time_format">현재 시간은 %1$d시 %2$d분 %3$d초 입니다</string>
     <string name="haha">ㅋㅋㅋㅋ</string>
     <string name="good">그거 괜찮네요</string>
+    <string name="naver">네이버</string>
+    <string name="action_voice_input">음성입력</string>
 </resources>
